@@ -1,0 +1,9 @@
+__pycache__/
+venv/
+
+data*/
+weights/
+training_runs/
+
+*.pth
+*.zip
