@@ -19,7 +19,7 @@ bash scripts/setup_environments
 
 ## Data
 
-You can get dataset from [here](https://www.kaggle.com/datasets/splcher/animefacedataset) or download from [here](https://drive.google.com/file/d/1fYE2BMtw4em23u6Pv1gUkzRQ0TTCfoh6/view?usp=share_link) (Private)
+You can get dataset from [Kaggle](https://www.kaggle.com/datasets/splcher/animefacedataset) or download from [Google Drive](https://drive.google.com/file/d/1fYE2BMtw4em23u6Pv1gUkzRQ0TTCfoh6/view?usp=share_link) (Private)
 
 ## Checkpoint
 
