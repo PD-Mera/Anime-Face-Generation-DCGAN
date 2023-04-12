@@ -15,17 +15,21 @@ class Config:
 
         ### Image ###
         self.image_size = (64, 64)
-        self.mean = [0.5, 0.5, 0.5]
-        self.std = [0.5, 0.5, 0.5]
+        self.channel = 3
+        self.mean = [0.5] * self.channel
+        self.std = [0.5] * self.channel
 
         ### Train config ###
         self.EPOCH = 1000
-        self.train_batch_size = 512
+        self.train_batch_size = 128
         self.train_num_worker = 8
         self.learning_rate_G = 0.0002
         self.learning_rate_D = 0.0002
-        self.pretrained_G_weight = ''
-        self.pretrained_D_weight = ''
+
+        self.LSGAN = True
+
+        self.pretrained_G_weight = ""
+        self.pretrained_D_weight = ""
         self.run_folder = "training_runs"
         self.exp_name = "exp"
         self.exp_number = self.get_exp_number()
@@ -35,11 +39,18 @@ class Config:
             shutil.copy(os.path.abspath(__file__), self.exp_run_folder)
         self.model_G_savepath = "model_G_best.pth"
         self.model_D_savepath = "model_D_best.pth"
+        self.training_log_savepath = "log.csv"
 
         ### Hyperparameter ###
         self.seed = 42
         self.flip_label = 0.1
         
+        ### Metrics ###
+        self.metrics = "FID" # None or FID
+        if self.metrics is not None:
+            os.makedirs(f"{self.metrics}_metrics", exist_ok=True)
+        self.reload_metrics = False
+
         ### Test config ###
         self.output_dir = "outputs"
         self.num_col = 6
@@ -58,3 +69,9 @@ class Config:
 
         return exp_number
     
+class ConfigInference(Config):
+    def __init__(self, phase = "valid"):
+        super().__init__(phase)
+        self.best_checkpoint = './training_runs/DCGAN_460/model_G_best.pth'
+        self.num_col = 10
+        self.num_row = 2

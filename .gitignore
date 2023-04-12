@@ -3,7 +3,9 @@ venv/
 
 data*/
 weights/
+outputs/
 training_runs/
+FID_metrics/
 
 *.pth
 *.zip

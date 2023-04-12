@@ -73,7 +73,7 @@ class DisBlock(nn.Module):
 
 
 class Discriminator(nn.Module):
-    def __init__(self, in_channels: int = 3):
+    def __init__(self, in_channels: int = 3, use_sigmoid = True):
         super().__init__()
         self.input_block = nn.Sequential(
             nn.Conv2d(in_channels, 64, 4, 2, 1),
@@ -84,10 +84,15 @@ class Discriminator(nn.Module):
             DisBlock(128, 256, 4, 2, 1),
             DisBlock(256, 512, 4, 2, 1)
         )
-        self.output_block = nn.Sequential(
-            nn.Conv2d(512, 1, 4, 1, 0),
-            nn.Sigmoid()
-        )
+        if use_sigmoid:
+            self.output_block = nn.Sequential(
+                nn.Conv2d(512, 1, 4, 1, 0),
+                nn.Sigmoid()
+            )
+        else:
+            self.output_block = nn.Sequential(
+                nn.Conv2d(512, 1, 4, 1, 0)
+            )
 
     def forward(self, x):
         x = self.input_block(x)

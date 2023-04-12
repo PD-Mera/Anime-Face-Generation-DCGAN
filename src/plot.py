@@ -22,13 +22,14 @@ def draw_plot(inputs: torch.Tensor, config: Config, **kwarg):
     # inputs is torch tensor with BS x C x W x H
     draw_part = postprocess_tensor(inputs[:config.num_col * config.num_row], config)
     list_img_pil = [T.ToPILImage()(draw_part[i]) for i in range(draw_part.size(0))]
-    plt.figure()
+    plt.figure(figsize=(config.num_col, config.num_row))
     # plt.axis(False)
     for idx, img in enumerate(list_img_pil):
-        plt.subplot(config.num_col, config.num_row, idx+1)
+        plt.subplot(config.num_row, config.num_col, idx+1)
         plt.axis(False)
         plt.imshow(img)
         # plt.imshow(img, cmap="Greys")
+        plt.subplots_adjust(wspace=0, hspace=0)
         plt.tight_layout()
 
     savefig_name = config.savefig_name
